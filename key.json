@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "careful-mapper-505606-s3",
+  "private_key_id": "a93ff7c3119aabcb1cf30ae750e55c48532e4258",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDFOnu1M00xKmkQ\nZAPr4UuXR1ll00QX/OYN436uv79qwMHPNz9o95HC2LgTXzaCRbTt4tT/JQUckqcD\nT4o9k1/S1UY5Qv6tZsRwB8Y6spi6tYlHrghVe9zqa88irFHmX97rtq5a7xPf1opI\nebbQUIBSgZVb7WFypwRWfPd+BYKa1sAj5cv72qXpXaSJmcvoz8xGvaxfkGbray1l\n3M3BQzK9X3lunyIuizFO1aqqDCvo5MsG7RQc1godiSe/C/0qL9tJZn7rUTZR9Ngs\ntDqRG8JDL7Ujd6uiOnJAL+yTeM+ULiySAYVBUOCf4M8m3h8AmzmlZ4zxYPxK+rOx\nwiLvLS4HAgMBAAECgf8lbAPGPHirSpEPY8DpKwuZxvtjtsm2yHPRPMEs16GsjFAB\n/crKCHcavp6MSy9nq0vJhZfCn8+Iyq5NY5HmwW3tGQr4wIYqj3ClX42IbcxEJmiM\nqz6A+chAJwy3REG2gO7cotRfXLTct2FOybFwP8wNXhZ04sft0dfEmUUzj70xxnfJ\ncjAOzQRGwo0Frv0L5Caib7mpBZARcQ+i5isUX2HYaOiQ3hy3yj8zJtc3r2UvFqlg\nyUrZS077JQi0BCv4DOrzOUfbauVj5JJOVr8CpeTkZYHMjea2P6m4VAMzyrzRMlOQ\nubvuCgbHYFEJNH9bbgUB3N7VdX9ej5osBa9Ps8ECgYEA8Huzhgp/ppD/6GJAmkOD\nUX2atjsUxqXE9n5VYCx7oLkf65SeR1+oG57m103NsNh+iLr1ZMlXnJb4sFUnLlxa\nx+8ihGr7K4rO6SGDfIbF2uoRdlCmT9GKjj472Qiow8JOPClGkhzg7dB8GG1/n/oL\no8mCA5j+lZrAlfn8rvHp3MECgYEA0fRM5u8G0BRSUg9e4TRYH4Gjxw0doCBn28Us\nm0/AsmMFTy/jTHLFozLUrlOjdTj550nCtXal8kNiQa/tTPWSoo+Q54bL/L0lVfTJ\nhaQUyN4qA7eEfRRRohQGm/1J047LZzh67Xk9VNbzR1yf8UqOW9kiEmS58UmpCN12\ns7iDlMcCgYEA2olPZyv7PL7gD6nZ01Yu68sc4SVnh+30w5uisjc6UaBp5Ye1Hl9L\nQW5xkI7fsSnMMyzS+7gMqfx4GqYHaRX8WVxzHaqqfbMyvKD8ABnpizrSi5ZWzIo7\nQ3BCqsQ3uU3GEt3fh8A+l16ypvA63oI4OatRPzu1fvaWtLPscH7eawECgYBLt5Ig\nWqWXVyzVAUwTZcA+JI+/EoDTpbwu6u4KWPnCm6lnhHqxsFaMY6GF+Q3jEZg2jEhX\nDyILu7dsvxiSf6HRVHtKtDdOv5v+YthmhOUmB9EZJA742OIT1KsJiJAeZsn+QMU8\nbVPsC9USsFnSODQc9bKu9XqFhS4bz1qmt+1kMwKBgQCXBg4nAVUK7IiI323PExLd\nBNvjXo1TE98hD24nbt595AK4mpkCKQQTUQVqPricuPf8F1ctIya2CdeYevwj6oU7\nYcockBJM8OrBcIAmmJzvivkvg6NS5ZmOVSy9MiNvMOR2IsJPeAxV4mSf6bnx4xDN\n6AWqmok0LDCIdIuqzKnaVg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "threatwatch-503@careful-mapper-505606-s3.iam.gserviceaccount.com",
+  "client_id": "115393430033577699515",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/threatwatch-503%40careful-mapper-505606-s3.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
