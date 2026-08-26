@@ -2,11 +2,14 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 
-dotenv.config()
+dotenv.config() // 1. Sab se pehle ye
 const app = express()
-const PORT = process.env.PORT || 8000  // 1. Railway 8000 expect karta hai
+const PORT = process.env.PORT || 8000
 
-// 2. CORS ko sab se pehle lagao
+console.log("PORT:", PORT) // 2. Debug ke liye add karo
+console.log("MONGO:", process.env.MONGO_URI ? "YES" : "NO")
+console.log("GEMINI:", process.env.GEMINI_API_KEY ? "YES" : "NO")
+
 app.use(cors({ 
   origin: "https://threatwatch-client-production.up.railway.app",
   credentials: true,
@@ -16,7 +19,7 @@ app.use(cors({
 
 app.use(express.json())
 
-// 3. Routes
+// Routes
 import authRoutes from './routes/authRoutes.js'
 import scanRoutes from './routes/scanRoutes.js'
 import adminRoutes from './routes/adminRoutes.js'
@@ -27,7 +30,6 @@ app.use('/api/scan', scanRoutes)
 app.use('/api/admin', adminRoutes)
 app.use('/api/moderator', moderatorRoutes)
 
-// 4. Health check
 app.get('/', (req, res) => {
   res.json({message: "ThreatWatch-AI Server is running 🚀"})
 })
