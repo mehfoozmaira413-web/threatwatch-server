@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 const app = express()
-const PORT = process.env.PORT || 8000
+const PORT = process.env.PORT || 5001
 
 app.use(cors({ 
   origin: "https://threatwatch-client-production.up.railway.app",
