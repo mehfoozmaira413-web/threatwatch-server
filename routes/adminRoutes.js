@@ -4,6 +4,7 @@ const { ObjectId } = require("mongodb"); // <-- YE ADD KIYA
 const User = require("../models/User");
 const Scan = require("../models/Scan");
 const authMiddleware = require("../middleware/authMiddleware");
+const Permission = require("../models/Permission"); // upar import kar lena
 
 const router = express.Router();
 
@@ -494,6 +495,69 @@ router.get(
         success: false,
         message:
           "Could not load flagged threats.",
+        details: error.message,
+      });
+    }
+  }
+);
+
+// =====================================================
+// GET ALL PERMISSIONS 
+// GET /api/admin/permissions
+// =====================================================
+router.get(
+  "/permissions",
+  authMiddleware,
+  adminOnly,
+  async (req, res) => {
+    try {
+      const permissions = await Permission.find();
+      return res.status(200).json({
+        success: true,
+        permissions,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: "Failed to load permissions.",
+        details: error.message,
+      });
+    }
+  }
+);
+
+// =====================================================
+// UPDATE PERMISSIONS
+// POST /api/admin/permissions
+// =====================================================
+router.post(
+  "/permissions",
+  authMiddleware,
+  adminOnly,
+  async (req, res) => {
+    try {
+      const { user, moderator } = req.body;
+
+      // User ki permissions update
+      await Permission.findOneAndUpdate(
+        { role: "User" },
+        { permissions: user },
+        { upsert: true, new: true }
+      );
+
+      // Moderator ki permissions update
+      await Permission.findOneAndUpdate(
+        { role: "Moderator" },
+        { permissions: moderator },
+        { upsert: true, new: true }
+      );
+
+      return res.status(200).json({
+        success: true,
+        message: "Permissions updated successfully.",
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: "Failed to update permissions.",
         details: error.message,
       });
     }
