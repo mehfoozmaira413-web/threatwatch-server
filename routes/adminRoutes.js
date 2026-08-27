@@ -209,18 +209,19 @@ router.get("/permissions", authMiddleware, adminOnly, async (req, res) => {
   try {
     let permissions = await Permission.find();
 
-    // Agar DB khali hai to default bana do
+    // Agar DB khali hai to default bana do - 4no fields k sath
     if (permissions.length === 0) {
       permissions = [
-        { role: 'Admin', permissions: { canFlag: true, canDelete: true } },
-        { role: 'Moderator', permissions: { canFlag: true, canDelete: false } },
-        { role: 'User', permissions: { canFlag: false, canDelete: false } }
+        { role: 'Admin', permissions: { canScan: true, canViewHistory: true, canFlag: true, canDelete: true } },
+        { role: 'Moderator', permissions: { canScan: true, canViewHistory: true, canFlag: true, canDelete: false } },
+        { role: 'User', permissions: { canScan: true, canViewHistory: true, canFlag: false, canDelete: false } }
       ];
       await Permission.insertMany(permissions);
     }
 
     return res.status(200).json({ success: true, permissions });
   } catch (error) {
+    console.error("PERMISSIONS GET ERROR:", error);
     return res.status(500).json({ message: "Failed to load permissions.", details: error.message });
   }
 });
@@ -231,13 +232,14 @@ router.get("/permissions", authMiddleware, adminOnly, async (req, res) => {
 // =====================================================
 router.put("/permissions", authMiddleware, adminOnly, async (req, res) => {
   try {
-    const { permissions } = req.body; // frontend se array aayega
+    const { permissions } = req.body;
 
     await Permission.deleteMany({});
     await Permission.insertMany(permissions);
 
     return res.status(200).json({ success: true, message: "Permissions updated successfully." });
   } catch (error) {
+    console.error("PERMISSIONS UPDATE ERROR:", error);
     return res.status(500).json({ message: "Failed to update permissions.", details: error.message });
   }
 });
