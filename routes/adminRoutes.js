@@ -227,6 +227,78 @@ router.get("/permissions", authMiddleware, adminOnly, async (req, res) => {
 });
 
 // =====================================================
+// GET MY PERMISSIONS
+// GET /api/admin/permissions/me
+// Admin, Moderator and User can read their own permissions
+// =====================================================
+
+router.get("/permissions/me", authMiddleware, async (req, res) => {
+  try {
+    const role = String(req.user?.role || "").trim();
+
+    if (!role) {
+      return res.status(401).json({
+        success: false,
+        message: "User role not found.",
+      });
+    }
+
+    let permission = await Permission.findOne({ role });
+
+    // If permission record doesn't exist, create default
+    if (!permission) {
+      const defaults = {
+        Admin: {
+          canScan: true,
+          canViewHistory: true,
+          canFlag: true,
+          canDelete: true,
+        },
+
+        Moderator: {
+          canScan: true,
+          canViewHistory: true,
+          canFlag: true,
+          canDelete: false,
+        },
+
+        User: {
+          canScan: true,
+          canViewHistory: true,
+          canFlag: false,
+          canDelete: false,
+        },
+      };
+
+      permission = await Permission.create({
+        role,
+        permissions: defaults[role] || {
+          canScan: true,
+          canViewHistory: true,
+          canFlag: false,
+          canDelete: false,
+        },
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      role,
+      permissions: permission.permissions,
+    });
+
+  } catch (error) {
+    console.error("MY PERMISSIONS ERROR:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to load your permissions.",
+      details: error.message,
+    });
+  }
+});
+
+// =====================================================
 // UPDATE PERMISSIONS
 // PUT /api/admin/permissions
 // =====================================================
