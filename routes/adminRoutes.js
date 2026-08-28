@@ -202,27 +202,65 @@ router.get("/flags", authMiddleware, adminOnly, async (req, res) => {
 });
 
 // =====================================================
-// GET ALL PERMISSIONS 
-// GET /api/admin/permissions
+// UPDATE PERMISSIONS
+// PUT /api/admin/permissions
 // =====================================================
-router.get("/permissions", authMiddleware, adminOnly, async (req, res) => {
+router.put("/permissions", authMiddleware, adminOnly, async (req, res) => {
   try {
-    let permissions = await Permission.find();
+    const { permissions } = req.body;
 
-    // Agar DB khali hai to default bana do - 4no fields k sath
-    if (permissions.length === 0) {
-      permissions = [
-        { role: 'Admin', permissions: { canScan: true, canViewHistory: true, canFlag: true, canDelete: true } },
-        { role: 'Moderator', permissions: { canScan: true, canViewHistory: true, canFlag: true, canDelete: false } },
-        { role: 'User', permissions: { canScan: true, canViewHistory: true, canFlag: false, canDelete: false } }
-      ];
-      await Permission.insertMany(permissions);
+    if (!Array.isArray(permissions)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid permissions data.",
+      });
     }
 
-    return res.status(200).json({ success: true, permissions });
+    const allowedRoles = ["Admin", "Moderator", "User"];
+
+    for (const item of permissions) {
+      if (!allowedRoles.includes(item.role)) {
+        continue;
+      }
+
+      await Permission.findOneAndUpdate(
+        { role: item.role },
+        {
+          role: item.role,
+          permissions: {
+            canScan: Boolean(item.permissions?.canScan),
+            canViewHistory: Boolean(
+              item.permissions?.canViewHistory
+            ),
+            canFlag: Boolean(item.permissions?.canFlag),
+            canDelete: Boolean(item.permissions?.canDelete),
+          },
+        },
+        {
+          upsert: true,
+          new: true,
+          setDefaultsOnInsert: true,
+        }
+      );
+    }
+
+    const updatedPermissions = await Permission.find().sort({
+      role: 1,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Permissions updated successfully.",
+      permissions: updatedPermissions,
+    });
   } catch (error) {
-    console.error("PERMISSIONS GET ERROR:", error);
-    return res.status(500).json({ message: "Failed to load permissions.", details: error.message });
+    console.error("PERMISSIONS UPDATE ERROR:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to update permissions.",
+      details: error.message,
+    });
   }
 });
 
